@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Admin — marcosvernillo.ads</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="dot"></span>marcosvernillo.ads <span class="sub">&nbsp;/ Panel Admin</span></div>
+  </div>
+</div>
+
+<!-- ============ LOCK SCREEN ============ -->
+<div id="lock-screen" class="locked-screen">
+  <div class="hero"><h1>Panel Admin</h1></div>
+  <div class="card">
+    <h3>Ingresá la contraseña</h3>
+    <div class="field">
+      <input type="password" id="pass-input" placeholder="Contraseña">
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="btn-entrar">Entrar</button>
+    </div>
+    <p id="lock-error" style="display:none; color:var(--danger); font-size:13.5px; margin-top:4px;"></p>
+  </div>
+</div>
+
+<!-- ============ DASHBOARD ============ -->
+<div id="dashboard-view" class="page active" style="display:none; max-width:1320px; margin:0 auto; padding:32px 24px 80px;">
+  <div class="hero">
+    <h1>Tus clientes</h1>
+    <p class="lead">Un vistazo rápido a la última carga de cada cliente.</p>
+  </div>
+  <div class="accent-rule"></div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary" id="btn-nuevo-cliente">+ Nuevo cliente</button>
+  </div>
+
+  <div class="card" id="nuevo-cliente-form" style="display:none;">
+    <h3>Nuevo cliente</h3>
+    <div class="field">
+      <label>Nombre de la marca</label>
+      <input type="text" id="nuevo-cliente-nombre" placeholder="Ej: Alba Design">
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="nuevo-cliente-confirmar">Crear cliente</button>
+    </div>
+  </div>
+
+  <div class="card" id="nuevo-cliente-result" style="display:none;">
+    <h3>Link para el cliente</h3>
+    <div class="card-note">Copiá este link y mandáselo directamente. No lo publiques en ningún lado.</div>
+    <div class="link-box" id="link-box"></div>
+  </div>
+
+  <div class="client-grid" id="client-grid"></div>
+</div>
+
+<!-- ============ DETALLE CLIENTE ============ -->
+<div id="detail-view" class="page" style="display:none; max-width:1320px; margin:0 auto; padding:32px 24px 80px;">
+  <div class="back-link" id="back-link">← Volver a todos los clientes</div>
+  <div class="hero">
+    <h1 id="detail-title">Cliente</h1>
+    <p class="lead">Historial completo de cargas, más reciente primero.</p>
+  </div>
+  <div class="accent-rule"></div>
+  <div class="card">
+    <div id="history-body"></div>
+  </div>
+</div>
+
+<script src="assets/config.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>

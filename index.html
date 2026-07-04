@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Rentabilidad Publicitaria — marcosvernillo.ads</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body>
+
+<div id="error-screen" style="display:none;">
+  <div class="locked-screen">
+    <div class="hero"><h1>No pudimos cargar tu calculadora</h1></div>
+    <div class="card">
+      <p id="error-message" class="card-note" style="margin-bottom:0; font-size:14px;"></p>
+    </div>
+  </div>
+</div>
+
+<div id="app" style="display:none;">
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="dot"></span>marcosvernillo.ads <span class="sub">&nbsp;/ Calculadora de Rentabilidad</span></div>
+    <div class="tabs" id="tabs">
+      <button class="tab-btn active" data-tab="bienvenida">Bienvenida</button>
+      <button class="tab-btn" data-tab="calculadora">Calculadora</button>
+      <button class="tab-btn" data-tab="resumen">Resumen</button>
+      <button class="tab-btn" data-tab="accionable">Accionable</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ BIENVENIDA ============ -->
+<div class="page active" id="page-bienvenida">
+  <div class="hero">
+    <h1>Calculadora de Rentabilidad Publicitaria</h1>
+    <p class="lead">Entendé si tu publicidad es rentable y qué ROAS necesitás alcanzar. Cargá tus números una vez y mirá los resultados actualizarse en tiempo real.</p>
+  </div>
+  <div class="accent-rule"></div>
+
+  <div class="card">
+    <h3>Qué encontrás en este archivo</h3>
+    <div class="feature-list">
+      <div class="feature-item"><div class="emoji">🧮</div><div><h4>Calculadora</h4><p>Ingresá los datos de tu negocio. Los campos con el punto celeste son los que completás vos; el resto se calcula solo.</p></div></div>
+      <div class="feature-item"><div class="emoji">📊</div><div><h4>Resumen</h4><p>Vista clara con tus números clave: ROAS, punto de equilibrio y diagnóstico — se actualiza sola a medida que cargás datos.</p></div></div>
+      <div class="feature-item"><div class="emoji">🤖</div><div><h4>Accionable</h4><p>Prompt listo para analizar tus números con IA si los resultados no te cierran, con tus datos ya incorporados.</p></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Cómo usarla — 3 pasos</h3>
+    <div class="steps">
+      <div class="step-item"><div class="stepnum">1</div><div><h4>Completá la Calculadora</h4><p>Cargá tus costos fijos, productos, ticket promedio y datos de campaña.</p></div></div>
+      <div class="step-item"><div class="stepnum">2</div><div><h4>Leé tu Resumen</h4><p>Mirá tu ROAS real, punto de equilibrio y diagnóstico del período.</p></div></div>
+      <div class="step-item"><div class="stepnum">3</div><div><h4>Usá el Accionable</h4><p>Si los números no cierran, llevá el prompt a tu IA y trabajá el plan.</p></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>⚠️ Importante</h3>
+    <ul class="important-list">
+      <li>Los campos marcados con el punto celeste los completás vos. Los demás se calculan solos.</li>
+      <li>Este archivo no incluye impuestos (IVA, IIBB, Ganancias) ni costo de devoluciones.</li>
+      <li>Completá con los datos más precisos que puedas para obtener resultados reales.</li>
+      <li>Al finalizar, tus resultados quedan registrados automáticamente. Usá el botón "Finalizar" en la pestaña Resumen para guardar cada período.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============ CALCULADORA ============ -->
+<div class="page" id="page-calculadora">
+<div class="layout">
+  <div>
+    <div class="legend">
+      <div class="legend-item"><span class="dot edit"></span> Completás vos</div>
+      <div class="legend-item"><span class="dot calc"></span> Se calcula solo</div>
+    </div>
+
+    <div class="section-title"><div class="num">•</div><h2>Tus productos más vendidos (máximo 5)</h2></div>
+    <div class="card">
+      <div class="card-note">Usamos esto para calcular tu costo de producto ponderado según tu mix real de ventas.</div>
+      <table class="prod-table">
+        <thead><tr><th style="width:45%">Producto / Categoría</th><th style="width:20%">% de tus ventas</th><th style="width:35%">Costo de fabricar o comprar</th></tr></thead>
+        <tbody id="prod-rows"></tbody>
+      </table>
+      <div class="grid2" style="margin-top:14px;">
+        <div class="field"><label>Total ponderado — % de ventas</label><div class="computed" data-field="prodSumPct">100,0%</div></div>
+        <div class="field"><label>Total ponderado — costo de producto</label><div class="computed" data-field="prodWeightedCost">$0</div></div>
+      </div>
+      <div class="warn-text" id="prod-warn">La suma de tus % de ventas no da 100%. Ajustala para que el costo ponderado sea preciso.</div>
+    </div>
+
+    <div class="section-title"><div class="num">1</div><h2>Costos fijos mensuales</h2></div>
+    <div class="card">
+      <div class="grid2">
+        <div class="field"><label><span class="req-dot"></span>Alquiler / Espacio físico</label><input type="number" id="fx_alquiler" value="500000"></div>
+        <div class="field"><label><span class="req-dot"></span>Servicios del local (luz, agua, internet)</label><input type="number" id="fx_servicios" value="100000"></div>
+        <div class="field"><label><span class="req-dot"></span>Sueldos y cargas sociales</label><input type="number" id="fx_sueldos" value="1200000"></div>
+        <div class="field"><label><span class="req-dot"></span>Honorarios profesionales</label><input type="number" id="fx_honorarios" value="250000"></div>
+        <div class="field"><label><span class="req-dot"></span>Software y herramientas</label><input type="number" id="fx_software" value="50000"></div>
+        <div class="field"><label><span class="req-dot"></span>Logística / Depósito tercerizado</label><input type="number" id="fx_logistica" value="300000"></div>
+        <div class="field"><label><span class="req-dot"></span>Tu sueldo (pro-labore)</label><input type="number" id="fx_prolabore" value="500000"></div>
+        <div class="field"><label><span class="req-dot"></span>Otros costos fijos</label><input type="number" id="fx_otros" value="100000"></div>
+      </div>
+      <div class="field" style="margin-top:14px;"><label>Total costos fijos mensuales</label><div class="computed" data-field="fxTotal">$0</div></div>
+    </div>
+
+    <div class="section-title"><div class="num">2</div><h2>Datos de tu tienda</h2></div>
+    <div class="card">
+      <div class="grid2">
+        <div class="field"><label>Nombre de tu marca</label><input type="text" id="tienda_nombre" value="" readonly></div>
+        <div class="field"><label><span class="req-dot"></span>Rubro / Categoría</label><input type="text" id="tienda_rubro" value="Calzado"></div>
+        <div class="field"><label><span class="req-dot"></span>Plataforma de tienda online</label>
+          <select id="tienda_plataforma">
+            <option>Tienda Nube</option><option>Mercado Shops</option><option>Shopify</option><option>WooCommerce</option><option>Otra</option>
+          </select>
+        </div>
+        <div class="field"><label><span class="req-dot"></span>Período que analizás</label><input type="text" id="tienda_periodo" value="Mayo"></div>
+      </div>
+    </div>
+
+    <div class="section-title"><div class="num">3</div><h2>Precio y costos por venta</h2></div>
+    <div class="card">
+      <div class="grid2">
+        <div class="field"><label><span class="req-dot"></span>Ticket promedio</label><input type="number" id="pv_ticket" value="80000"></div>
+        <div class="field"><label>Costo de producto <span class="tag-calc">auto</span></label><div class="computed small" data-field="pvCostoProducto">$0</div></div>
+        <div class="field"><label><span class="req-dot"></span>Costo de envío que absorbés</label><input type="number" id="pv_envio" value="3000"></div>
+        <div class="field"><label><span class="req-dot"></span>Costo de packaging y armado</label><input type="number" id="pv_packaging" value="500"></div>
+        <div class="field"><label><span class="req-dot"></span>Otros costos variables por venta</label><input type="number" id="pv_otros" value="0"></div>
+        <div class="field"><label>Costos financieros y comisiones <span class="tag-calc">auto</span></label><div class="computed small" data-field="pvComisionesFin">$0</div></div>
+      </div>
+    </div>
+
+    <div class="section-title"><div class="num">4</div><h2>Comisiones de plataforma</h2></div>
+    <div class="card">
+      <div class="grid2">
+        <div class="field has-suffix"><label><span class="req-dot"></span>Comisión de tu plataforma (%)</label><div class="input-wrap"><input type="number" id="com_plataforma" value="2"><span class="suffix">%</span></div></div>
+        <div class="field has-suffix"><label><span class="req-dot"></span>Comisión Mercado Pago (%)</label><div class="input-wrap"><input type="number" id="com_mp" value="6"><span class="suffix">%</span></div></div>
+      </div>
+    </div>
+
+    <div class="section-title"><div class="num">5</div><h2>Costo financiero de cuotas</h2></div>
+    <div class="card">
+      <div class="field has-suffix" style="max-width:280px;"><label><span class="req-dot"></span>Costo financiero de cuotas (%)</label><div class="input-wrap"><input type="number" id="fin_cuotas" value="10"><span class="suffix">%</span></div></div>
+      <div class="card-note" style="margin-top:10px; margin-bottom:0;">Si ofrecés varias cuotas, agregá el % más alto.</div>
+    </div>
+
+    <div class="section-title"><div class="num">6</div><h2>Margen objetivo</h2></div>
+    <div class="card">
+      <div class="field has-suffix" style="max-width:280px;"><label><span class="req-dot"></span>¿Qué % de ganancia querés por venta?</label><div class="input-wrap"><input type="number" id="margen_objetivo" value="20"><span class="suffix">%</span></div></div>
+      <div class="card-note" style="margin-top:10px; margin-bottom:0;">Mínimo 15%. Ideal: entre 20% y 25%. Si tu negocio supera ese rango, mejor.</div>
+    </div>
+
+    <div class="section-title"><div class="num">7</div><h2>Resultado por venta</h2></div>
+    <div class="card">
+      <div class="grid2">
+        <div class="field"><label>Costo total por venta <span class="tag-calc">auto</span></label><div class="computed" data-field="costoTotalVenta">$0</div></div>
+        <div class="field"><label>Lo que queda por venta (antes de fijos) <span class="tag-calc">auto</span></label><div class="computed" data-field="quedaPorVenta">$0</div></div>
+        <div class="field"><label>% que queda por venta (antes de fijos) <span class="tag-calc">auto</span></label><div class="computed" data-field="pctQuedaVenta">0,0%</div></div>
+      </div>
+    </div>
+
+    <div class="section-title"><div class="num">10</div><h2>Datos reales de tus campañas</h2></div>
+    <div class="card">
+      <div class="grid2">
+        <div class="field"><label><span class="req-dot"></span>¿Cuánto invertiste en publicidad?</label><input type="number" id="camp_inversion" value="2000000"></div>
+        <div class="field"><label><span class="req-dot"></span>¿Cuánto facturaste de esa publicidad?</label><input type="number" id="camp_facturacion" value="20000000"></div>
+        <div class="field"><label><span class="req-dot"></span>¿Cuántas ventas hiciste?</label><input type="number" id="camp_ventas" value="250"></div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" id="btn-reset">Restablecer valores de ejemplo</button>
+      <button class="btn btn-ghost" id="btn-clear">Vaciar todos los campos</button>
+    </div>
+  </div>
+
+  <!-- sticky sidebar -->
+  <div class="sidebar">
+    <div class="stat-card key">
+      <div class="stat-label">Ganancia neta del período</div>
+      <div class="stat-value" data-field="gananciaNeta">$0</div>
+      <div class="stat-sub" data-field="rentabilidadPct">0,0% sobre facturación</div>
+    </div>
+    <div class="stat-card key">
+      <div class="stat-label">ROAS mínimo</div>
+      <div class="stat-value" data-field="roasMinimo">0,00x</div>
+      <div class="stat-sub">Por debajo de esto, el negocio va a pérdida.</div>
+    </div>
+    <div class="stat-card key">
+      <div class="stat-label">ROAS objetivo</div>
+      <div class="stat-value cyan" data-field="roasObjetivo">0,00x</div>
+      <div class="stat-sub">Por encima, estás retirando ganancia limpia.</div>
+    </div>
+    <div class="stat-card key">
+      <div class="stat-label">Costo por compra real</div>
+      <div class="stat-value" data-field="costoCompraReal">$0</div>
+      <div class="stat-sub" data-field="costoCompraRealSub">vs. máximo</div>
+    </div>
+    <div class="stat-card key">
+      <div class="stat-label">Costo por compra máximo</div>
+      <div class="stat-value" data-field="costoCompraMax">$0</div>
+      <div class="stat-sub">El techo que tu negocio puede afrontar por venta.</div>
+    </div>
+    <div class="diag-banner" id="diag-banner-live" data-field="diagBanner">Completá tus datos para ver el diagnóstico.</div>
+  </div>
+</div>
+</div>
+
+<!-- ============ RESUMEN ============ -->
+<div class="page" id="page-resumen">
+  <div class="hero">
+    <h1>Resumen de rentabilidad</h1>
+    <p class="lead">Período: <strong data-field="periodoLabel" style="color:var(--white);">Mayo</strong></p>
+  </div>
+  <div class="accent-rule"></div>
+
+  <div class="card">
+    <h3>¿Cómo leer tus números este mes?</h3>
+    <ul class="important-list">
+      <li><strong style="color:var(--white-80);">ROAS mínimo:</strong> si tu ROAS real es menor a este número, el negocio fue a pérdida.</li>
+      <li><strong style="color:var(--white-80);">ROAS objetivo:</strong> si tu ROAS real supera este número, estás retirando ganancia limpia.</li>
+    </ul>
+  </div>
+
+  <div class="card key" style="margin-bottom:16px; position:relative; overflow:hidden;">
+    <div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--accent),var(--cyan));"></div>
+    <h3>Ganancia neta del período</h3>
+    <div class="val" style="font-size:34px; font-weight:800;" data-field="gananciaNeta">$0</div>
+    <div class="desc" data-field="rentabilidadPct" style="margin-top:4px;">0,0% sobre facturación</div>
+  </div>
+
+  <div class="resumen-grid">
+    <div class="big-stat key"><div class="lbl">ROAS mínimo</div><div class="val" data-field="roasMinimo">0,00x</div><div class="desc">Lo mínimo para cubrir productos y costos fijos.</div></div>
+    <div class="big-stat key"><div class="lbl">ROAS objetivo</div><div class="val" style="color:var(--cyan);" data-field="roasObjetivo">0,00x</div><div class="desc">El rendimiento para pagar todo y retirar ganancia.</div></div>
+    <div class="big-stat key"><div class="lbl">Costo por compra real</div><div class="val" data-field="costoCompraReal">$0</div><div class="desc" data-field="costoCompraRealSub">vs. máximo</div></div>
+    <div class="big-stat key"><div class="lbl">Costo por compra máximo</div><div class="val" data-field="costoCompraMax">$0</div><div class="desc">El techo que tu negocio puede afrontar por venta.</div></div>
+  </div>
+
+  <div class="card">
+    <h3>Detalle del período</h3>
+    <table class="detalle">
+      <tr><td>Ventas realizadas</td><td data-field="detVentas">0</td></tr>
+      <tr><td>Facturación total</td><td data-field="detFacturacion">$0</td></tr>
+      <tr><td>Inversión en publicidad</td><td data-field="detInversion">$0</td></tr>
+      <tr><td>Lo que quedó de las ventas</td><td data-field="detQuedo">$0</td></tr>
+      <tr><td>Costos fijos del mes</td><td data-field="detFijos">$0</td></tr>
+      <tr><td>Rentabilidad sobre facturación</td><td data-field="detRentabilidad">0,0%</td></tr>
+    </table>
+  </div>
+
+  <div class="diag-banner" id="diag-banner-final" data-field="diagFinal">Completá tus datos para ver el diagnóstico.</div>
+
+  <div class="card" style="margin-top:22px;">
+    <h3>Finalizar</h3>
+    <div class="card-note">Se descarga un reporte con tus resultados de este período y quedan registrados automáticamente para marcosvernillo.ads.</div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="btn-finalizar">Finalizar y enviar mis resultados</button>
+    </div>
+    <div class="copy-feedback" id="finalizar-feedback">✅ Se descargó tu reporte y tus resultados quedaron registrados.</div>
+  </div>
+</div>
+
+<!-- ============ ACCIONABLE ============ -->
+<div class="page" id="page-accionable">
+  <div class="hero">
+    <h1>Prompt para analizar tus números con IA</h1>
+    <p class="lead">Copiá el texto de abajo (ya incluye tus resultados actuales) y pegalo en ChatGPT, Claude o Gemini.</p>
+  </div>
+  <div class="accent-rule"></div>
+  <div class="card">
+    <div class="prompt-box" id="prompt-text"></div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="btn-copy">Copiar prompt con mis datos</button>
+      <span class="copy-feedback" id="copy-feedback">¡Copiado!</span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>marcosvernillo.ads — Calculadora de Rentabilidad Publicitaria</span>
+  <span>No incluye impuestos (IVA, IIBB, Ganancias) ni costo de devoluciones.</span>
+</footer>
+
+</div>
+
+<script src="assets/config.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/calculadora.js"></script>
+</body>
+</html>
