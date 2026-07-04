@@ -143,7 +143,21 @@
     detailView.style.display = 'block';
     detailTitle.textContent = cliente.nombre;
     detailLinkBox.textContent = buildClientLink(cliente.slug);
-    var historial = respuestasDe(cliente.slug);
+    historyBody.innerHTML = '<div class="empty-state">Actualizando datos…</div>';
+
+    CalcAPI.fetchAdmin(state.pass).then(function (data) {
+      if (!data.error) {
+        state.clientes = data.clientes || [];
+        state.respuestas = data.respuestas || [];
+      }
+      renderHistorial(cliente.slug);
+    }).catch(function () {
+      renderHistorial(cliente.slug);
+    });
+  }
+
+  function renderHistorial(slug) {
+    var historial = respuestasDe(slug);
     historyBody.innerHTML = '';
 
     var header = document.createElement('div');
@@ -165,10 +179,53 @@
           '<div>' + fmtFecha(r.timestamp) + '</div>' +
           '<div>' + fmtPct(r.rentabilidad) + '</div>' +
           '<div>' + fmtRoas(r.roasReal) + '</div>' +
-          '<div>' + fmtMoney(r.gananciaNeta) + '</div>';
+          '<div>' + fmtMoney(r.gananciaNeta) + '</div>' +
+          '<div class="back-link" style="margin:0; font-size:12.5px;">Ver detalle ▾</div>';
         historyBody.appendChild(row);
+
+        var detail = document.createElement('div');
+        detail.className = 'card-note';
+        detail.style.display = 'none';
+        detail.style.margin = '0 0 4px';
+        detail.innerHTML = buildDetalleCompleto(r);
+        historyBody.appendChild(detail);
+
+        var toggle = row.querySelector('.back-link');
+        toggle.addEventListener('click', function () {
+          var abierto = detail.style.display !== 'none';
+          detail.style.display = abierto ? 'none' : 'block';
+          toggle.textContent = abierto ? 'Ver detalle ▾' : 'Ocultar detalle ▴';
+        });
       });
     }
+
+    var rows = historyBody.querySelectorAll('.history-row');
+    if (rows.length) rows[rows.length - 1].style.borderBottom = 'none';
+  }
+
+  function buildDetalleCompleto(r) {
+    var campos = [
+      ['Rubro', escapeHtml(r.rubro || '-')],
+      ['Plataforma', escapeHtml(r.plataforma || '-')],
+      ['Ticket promedio', fmtMoney(r.ticket)],
+      ['Costo de producto', fmtMoney(r.costoProducto)],
+      ['Costo total por venta', fmtMoney(r.costoTotalVenta)],
+      ['% que queda por venta', fmtPct(r.pctQuedaVenta)],
+      ['Margen objetivo', (Number(r.margenObjetivo) || 0) + '%'],
+      ['Costos fijos mensuales', fmtMoney(r.fxTotal)],
+      ['Inversión en publicidad', fmtMoney(r.adSpend)],
+      ['Facturación de esa inversión', fmtMoney(r.facturacionCamp)],
+      ['Ventas', Number(r.ventasCamp) || 0],
+      ['ROAS mínimo', fmtRoas(r.roasMinimo)],
+      ['ROAS objetivo', fmtRoas(r.roasObjetivo)],
+      ['ROAS real', fmtRoas(r.roasReal)],
+      ['Costo por compra real', fmtMoney(r.costoCompraReal)],
+      ['Costo por compra máximo', fmtMoney(r.costoCompraMax)],
+      ['Diagnóstico', escapeHtml(r.diagFinalMsg || r.diagMsg || '-')]
+    ];
+    return '<table class="detalle">' + campos.map(function (c) {
+      return '<tr><td>' + c[0] + '</td><td>' + c[1] + '</td></tr>';
+    }).join('') + '</table>';
   }
 
   backLink.addEventListener('click', function () {
