@@ -389,7 +389,7 @@ REGLAS: Usá solo los datos que te comparto. No inventes ni promedies con datos 
 <body><div class="wrap">
   <div class="brand">marcosvernillo.ads</div>
   <h1>Reporte de Rentabilidad — ${escapeHtmlLocal(data.cliente)}</h1>
-  <div class="meta">${escapeHtmlLocal(data.rubro||'-')} · Período: ${escapeHtmlLocal(data.periodo||'-')} · ${new Date(data.timestamp).toLocaleDateString('es-AR')}</div>
+  <div class="meta">${escapeHtmlLocal(data.rubro||'-')} · Período: ${escapeHtmlLocal(data.periodo||'-')} · ${new Date(data.timestamp).toLocaleDateString('es-AR', {day:'numeric', month:'long', year:'numeric'})}</div>
   <div class="grid">
     <div class="card"><div class="lbl">Ganancia neta</div><div class="val ${gananciaClass}">${fmtMoney(data.gananciaNeta)}</div></div>
     <div class="card"><div class="lbl">ROAS mínimo</div><div class="val">${fmtRoas(data.roasMinimo)}</div></div>
