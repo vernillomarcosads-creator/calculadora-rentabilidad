@@ -223,7 +223,7 @@
       ['Costo por compra máximo', fmtMoney(r.costoCompraMax)],
       ['Diagnóstico', escapeHtml(r.diagFinalMsg || r.diagMsg || '-')]
     ];
-    return '<table class="detalle">' + campos.map(function (c) {
+    return '<table class="detalle compact">' + campos.map(function (c) {
       return '<tr><td>' + c[0] + '</td><td>' + c[1] + '</td></tr>';
     }).join('') + '</table>';
   }

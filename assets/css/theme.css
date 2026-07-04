@@ -213,6 +213,7 @@ table.detalle td{padding:10px 4px; border-bottom:1px solid var(--white-10); font
 table.detalle td:first-child{color:var(--white-50);}
 table.detalle td:last-child{text-align:right; font-weight:700; color:var(--white); font-variant-numeric:tabular-nums;}
 table.detalle tr:last-child td{border-bottom:none;}
+table.detalle.compact td{padding:5px 4px; font-size:13px;}
 
 /* Accionable */
 .prompt-box{
