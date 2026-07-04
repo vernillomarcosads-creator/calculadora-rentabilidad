@@ -61,7 +61,10 @@
   <div class="card" id="nuevo-cliente-result" style="display:none;">
     <h3>Link para el cliente</h3>
     <div class="card-note">Copiá este link y mandáselo directamente. No lo publiques en ningún lado.</div>
-    <div class="link-box" id="link-box"></div>
+    <div class="link-row">
+      <div class="link-box" id="link-box"></div>
+      <button type="button" class="btn btn-ghost btn-copy" id="btn-copiar-link">Copiar</button>
+    </div>
   </div>
 
   <div class="client-grid" id="client-grid"></div>
@@ -75,6 +78,16 @@
     <p class="lead">Historial completo de cargas, más reciente primero.</p>
   </div>
   <div class="accent-rule"></div>
+
+  <div class="card">
+    <h3>Link del cliente</h3>
+    <div class="card-note">Si el cliente perdió su link, copialo de nuevo acá.</div>
+    <div class="link-row">
+      <div class="link-box" id="detail-link-box"></div>
+      <button type="button" class="btn btn-ghost btn-copy" id="btn-copiar-detail-link">Copiar</button>
+    </div>
+  </div>
+
   <div class="card">
     <div id="history-body"></div>
   </div>

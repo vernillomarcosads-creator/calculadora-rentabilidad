@@ -22,6 +22,9 @@
   var nuevoClienteConfirmar = document.getElementById('nuevo-cliente-confirmar');
   var nuevoClienteResult = document.getElementById('nuevo-cliente-result');
   var linkBox = document.getElementById('link-box');
+  var btnCopiarLink = document.getElementById('btn-copiar-link');
+  var detailLinkBox = document.getElementById('detail-link-box');
+  var btnCopiarDetailLink = document.getElementById('btn-copiar-detail-link');
 
   var state = { pass: null, clientes: [], respuestas: [] };
 
@@ -139,6 +142,7 @@
     dashboardView.style.display = 'none';
     detailView.style.display = 'block';
     detailTitle.textContent = cliente.nombre;
+    detailLinkBox.textContent = buildClientLink(cliente.slug);
     var historial = respuestasDe(cliente.slug);
     historyBody.innerHTML = '';
 
@@ -188,9 +192,7 @@
         alert('No se pudo crear el cliente: ' + res.error);
         return;
       }
-      var base = window.location.href.replace(/admin\.html.*$/, 'index.html');
-      var link = base + '?c=' + res.slug;
-      linkBox.textContent = link;
+      linkBox.textContent = buildClientLink(res.slug);
       nuevoClienteResult.style.display = 'block';
       nuevoClienteForm.style.display = 'none';
       // refrescar datos para que el nuevo cliente aparezca en el dashboard
@@ -200,6 +202,51 @@
       alert('No se pudo conectar con el servidor.');
     });
   });
+
+  function buildClientLink(slug) {
+    var base = window.location.href.replace(/admin\.html.*$/, 'index.html');
+    return base + '?c=' + slug;
+  }
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  function setupCopyButton(button, getText) {
+    var resetTimer = null;
+    button.addEventListener('click', function () {
+      var text = getText();
+      if (!text) return;
+      var showCopied = function () {
+        clearTimeout(resetTimer);
+        button.textContent = 'Copiado ✓';
+        button.classList.add('copied');
+        resetTimer = setTimeout(function () {
+          button.textContent = 'Copiar';
+          button.classList.remove('copied');
+        }, 1800);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(showCopied).catch(function () {
+          fallbackCopy(text);
+          showCopied();
+        });
+      } else {
+        fallbackCopy(text);
+        showCopied();
+      }
+    });
+  }
+
+  setupCopyButton(btnCopiarLink, function () { return linkBox.textContent; });
+  setupCopyButton(btnCopiarDetailLink, function () { return detailLinkBox.textContent; });
 
   function escapeHtml(str) {
     return String(str == null ? '' : str).replace(/[&<>"']/g, function (m) {
