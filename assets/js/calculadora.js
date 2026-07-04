@@ -10,8 +10,10 @@
   var appEl = document.getElementById('app');
   var errorEl = document.getElementById('error-screen');
   var errorMsgEl = document.getElementById('error-message');
+  var loadingEl = document.getElementById('loading-screen');
 
   function showError(msg) {
+    loadingEl.style.display = 'none';
     appEl.style.display = 'none';
     errorMsgEl.textContent = msg;
     errorEl.style.display = 'block';
@@ -30,6 +32,7 @@
     var nombreInput = document.getElementById('tienda_nombre');
     nombreInput.value = data.nombre;
     nombreInput.readOnly = true;
+    loadingEl.style.display = 'none';
     appEl.style.display = 'block';
     initCalculadora();
   }).catch(function () {

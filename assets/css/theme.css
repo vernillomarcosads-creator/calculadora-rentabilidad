@@ -232,6 +232,13 @@ footer{max-width:1320px; margin:0 auto; padding:20px 24px 60px; color:var(--whit
   #page-resumen .big-stat, #page-resumen table.detalle td{color:#111 !important;}
 }
 
+.spinner{
+  width:32px; height:32px; margin:0 auto 16px;
+  border:3px solid var(--white-10); border-top-color:var(--accent); border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
 /* ---------- Admin panel ---------- */
 .locked-screen{max-width:420px; margin:120px auto; padding:0 24px; text-align:center;}
 .locked-screen .card{text-align:left;}
