@@ -316,23 +316,7 @@ REGLAS: Usá solo los datos que te comparto. No inventes ni promedies con datos 
   document.addEventListener('input', recalc);
   document.addEventListener('change', recalc);
 
-  // Reset / clear
-  document.getElementById('btn-reset').addEventListener('click', ()=>{
-    buildProductRows();
-    const defaults = {
-      fx_alquiler:500000, fx_servicios:100000, fx_sueldos:1200000, fx_honorarios:250000,
-      fx_software:50000, fx_logistica:300000, fx_prolabore:500000, fx_otros:100000,
-      pv_ticket:80000, pv_envio:3000, pv_packaging:500, pv_otros:0,
-      com_plataforma:2, com_mp:6, fin_cuotas:10, margen_objetivo:20,
-      camp_inversion:2000000, camp_facturacion:20000000, camp_ventas:250
-    };
-    Object.keys(defaults).forEach(id=>{ document.getElementById(id).value = defaults[id]; });
-    document.getElementById('tienda_rubro').value = 'Calzado';
-    document.getElementById('tienda_plataforma').value = 'Tienda Nube';
-    document.getElementById('tienda_periodo').value = 'Mayo';
-    formatAllMoneyInputs();
-    recalc();
-  });
+  // Clear
   document.getElementById('btn-clear').addEventListener('click', ()=>{
     document.querySelectorAll('#page-calculadora input:not(#tienda_nombre)').forEach(el=>{ el.value = ''; });
     recalc();
