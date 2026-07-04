@@ -9,6 +9,7 @@
   var lockError = document.getElementById('lock-error');
   var passInput = document.getElementById('pass-input');
   var btnEntrar = document.getElementById('btn-entrar');
+  var togglePass = document.getElementById('toggle-pass');
   var dashboardView = document.getElementById('dashboard-view');
   var detailView = document.getElementById('detail-view');
   var clientGrid = document.getElementById('client-grid');
@@ -90,6 +91,11 @@
   });
   passInput.addEventListener('keydown', function (e) {
     if (e.key === 'Enter') btnEntrar.click();
+  });
+  togglePass.addEventListener('click', function () {
+    var show = passInput.type === 'password';
+    passInput.type = show ? 'text' : 'password';
+    togglePass.setAttribute('aria-label', show ? 'Ocultar contraseña' : 'Mostrar contraseña');
   });
 
   function renderDashboard() {

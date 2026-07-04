@@ -103,6 +103,12 @@ input[type=text]:focus, input[type=number]:focus, input[type=password]:focus, se
 }
 .suffix{position:absolute; right:12px; color:var(--white-50); font-size:13px; pointer-events:none;}
 .has-suffix input{padding-right:32px;}
+.toggle-pass{
+  position:absolute; right:8px; background:none; border:none; padding:4px; margin:0;
+  font-size:15px; line-height:1; cursor:pointer; color:var(--white-50); opacity:.7;
+  transition:opacity .15s;
+}
+.toggle-pass:hover{opacity:1;}
 select{appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23ffffff80'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center;}
 
 .computed{
