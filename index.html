@@ -97,14 +97,14 @@
     <div class="section-title"><div class="num">1</div><h2>Costos fijos mensuales</h2></div>
     <div class="card">
       <div class="grid2">
-        <div class="field"><label><span class="req-dot"></span>Alquiler / Espacio físico</label><input type="number" id="fx_alquiler" value="500000"></div>
-        <div class="field"><label><span class="req-dot"></span>Servicios del local (luz, agua, internet)</label><input type="number" id="fx_servicios" value="100000"></div>
-        <div class="field"><label><span class="req-dot"></span>Sueldos y cargas sociales</label><input type="number" id="fx_sueldos" value="1200000"></div>
-        <div class="field"><label><span class="req-dot"></span>Honorarios profesionales</label><input type="number" id="fx_honorarios" value="250000"></div>
-        <div class="field"><label><span class="req-dot"></span>Software y herramientas</label><input type="number" id="fx_software" value="50000"></div>
-        <div class="field"><label><span class="req-dot"></span>Logística / Depósito tercerizado</label><input type="number" id="fx_logistica" value="300000"></div>
-        <div class="field"><label><span class="req-dot"></span>Tu sueldo (pro-labore)</label><input type="number" id="fx_prolabore" value="500000"></div>
-        <div class="field"><label><span class="req-dot"></span>Otros costos fijos</label><input type="number" id="fx_otros" value="100000"></div>
+        <div class="field has-prefix"><label><span class="req-dot"></span>Alquiler / Espacio físico</label><div class="input-wrap"><span class="prefix">$</span><input type="text" inputmode="numeric" class="input-money" id="fx_alquiler" value="500000"></div></div>
+        <div class="field has-prefix"><label><span class="req-dot"></span>Servicios del local (luz, agua, internet)</label><div class="input-wrap"><span class="prefix">$</span><input type="text" inputmode="numeric" class="input-money" id="fx_servicios" value="100000"></div></div>
+        <div class="field has-prefix"><label><span class="req-dot"></span>Sueldos y cargas sociales</label><div class="input-wrap"><span class="prefix">$</span><input type="text" inputmode="numeric" class="input-money" id="fx_sueldos" value="1200000"></div></div>
+        <div class="field has-prefix"><label><span class="req-dot"></span>Honorarios profesionales</label><div class="input-wrap"><span class="prefix">$</span><input type="text" inputmode="numeric" class="input-money" id="fx_honorarios" value="250000"></div></div>
+        <div class="field has-prefix"><label><span class="req-dot"></span>Software y herramientas</label><div class="input-wrap"><span class="prefix">$</span><input type="text" inputmode="numeric" class="input-money" id="fx_software" value="50000"></div></div>
+        <div class="field has-prefix"><label><span class="req-dot"></span>Logística / Depósito tercerizado</label><div class="input-wrap"><span class="prefix">$</span><input type="text" inputmode="numeric" class="input-money" id="fx_logistica" value="300000"></div></div>
+        <div class="field has-prefix"><label><span class="req-dot"></span>Tu sueldo (pro-labore)</label><div class="input-wrap"><span class="prefix">$</span><input type="text" inputmode="numeric" class="input-money" id="fx_prolabore" value="500000"></div></div>
+        <div class="field has-prefix"><label><span class="req-dot"></span>Otros costos fijos</label><div class="input-wrap"><span class="prefix">$</span><input type="text" inputmode="numeric" class="input-money" id="fx_otros" value="100000"></div></div>
       </div>
       <div class="field" style="margin-top:14px;"><label>Total costos fijos mensuales</label><div class="computed" data-field="fxTotal">$0</div></div>
     </div>
@@ -126,11 +126,11 @@
     <div class="section-title"><div class="num">3</div><h2>Precio y costos por venta</h2></div>
     <div class="card">
       <div class="grid2">
-        <div class="field"><label><span class="req-dot"></span>Ticket promedio</label><input type="number" id="pv_ticket" value="80000"></div>
+        <div class="field has-prefix"><label><span class="req-dot"></span>Ticket promedio</label><div class="input-wrap"><span class="prefix">$</span><input type="text" inputmode="numeric" class="input-money" id="pv_ticket" value="80000"></div></div>
         <div class="field"><label>Costo de producto <span class="tag-calc">auto</span></label><div class="computed small" data-field="pvCostoProducto">$0</div></div>
-        <div class="field"><label><span class="req-dot"></span>Costo de envío que absorbés</label><input type="number" id="pv_envio" value="3000"></div>
-        <div class="field"><label><span class="req-dot"></span>Costo de packaging y armado</label><input type="number" id="pv_packaging" value="500"></div>
-        <div class="field"><label><span class="req-dot"></span>Otros costos variables por venta</label><input type="number" id="pv_otros" value="0"></div>
+        <div class="field has-prefix"><label><span class="req-dot"></span>Costo de envío que absorbés</label><div class="input-wrap"><span class="prefix">$</span><input type="text" inputmode="numeric" class="input-money" id="pv_envio" value="3000"></div></div>
+        <div class="field has-prefix"><label><span class="req-dot"></span>Costo de packaging y armado</label><div class="input-wrap"><span class="prefix">$</span><input type="text" inputmode="numeric" class="input-money" id="pv_packaging" value="500"></div></div>
+        <div class="field has-prefix"><label><span class="req-dot"></span>Otros costos variables por venta</label><div class="input-wrap"><span class="prefix">$</span><input type="text" inputmode="numeric" class="input-money" id="pv_otros" value="0"></div></div>
         <div class="field"><label>Costos financieros y comisiones <span class="tag-calc">auto</span></label><div class="computed small" data-field="pvComisionesFin">$0</div></div>
       </div>
     </div>
@@ -167,8 +167,8 @@
     <div class="section-title"><div class="num">10</div><h2>Datos reales de tus campañas</h2></div>
     <div class="card">
       <div class="grid2">
-        <div class="field"><label><span class="req-dot"></span>¿Cuánto invertiste en publicidad?</label><input type="number" id="camp_inversion" value="2000000"></div>
-        <div class="field"><label><span class="req-dot"></span>¿Cuánto facturaste de esa publicidad?</label><input type="number" id="camp_facturacion" value="20000000"></div>
+        <div class="field has-prefix"><label><span class="req-dot"></span>¿Cuánto invertiste en publicidad?</label><div class="input-wrap"><span class="prefix">$</span><input type="text" inputmode="numeric" class="input-money" id="camp_inversion" value="2000000"></div></div>
+        <div class="field has-prefix"><label><span class="req-dot"></span>¿Cuánto facturaste de esa publicidad?</label><div class="input-wrap"><span class="prefix">$</span><input type="text" inputmode="numeric" class="input-money" id="camp_facturacion" value="20000000"></div></div>
         <div class="field"><label><span class="req-dot"></span>¿Cuántas ventas hiciste?</label><input type="number" id="camp_ventas" value="250"></div>
       </div>
     </div>

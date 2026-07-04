@@ -65,10 +65,12 @@
       tr.innerHTML = `
         <td><input type="text" id="prod_name_${i}" placeholder="Producto ${i+1}" value="${p.name}"></td>
         <td><div class="input-wrap has-suffix"><input type="number" id="prod_pct_${i}" placeholder="0" value="${p.pct}"><span class="suffix">%</span></div></td>
-        <td><input type="number" id="prod_cost_${i}" placeholder="0" value="${p.cost}"></td>
+        <td><div class="input-wrap has-prefix"><span class="prefix">$</span><input type="text" inputmode="numeric" class="input-money" id="prod_cost_${i}" placeholder="0" value="${p.cost}"></div></td>
       `;
       prodRows.appendChild(tr);
     });
+    bindAllMoneyInputs();
+    formatAllMoneyInputs();
   }
   buildProductRows();
 
@@ -76,8 +78,30 @@
   function num(id){
     const el = document.getElementById(id);
     if(!el) return 0;
-    const v = parseFloat(el.value);
+    let raw = el.value;
+    if(el.classList.contains('input-money')) raw = raw.replace(/\./g,'');
+    const v = parseFloat(raw);
     return isNaN(v) ? 0 : v;
+  }
+
+  // ---------- Money inputs ($ prefix, miles con punto) ----------
+  function formatMoneyValue(raw){
+    if(raw == null) return '';
+    const digits = String(raw).replace(/\D/g,'');
+    return digits === '' ? '' : Number(digits).toLocaleString('es-AR');
+  }
+  function bindMoneyInput(el){
+    if(!el || el.dataset.moneyBound) return;
+    el.dataset.moneyBound = '1';
+    el.addEventListener('input', ()=>{ el.value = el.value.replace(/\D/g,''); });
+    el.addEventListener('focus', ()=>{ el.value = el.value.replace(/\./g,''); });
+    el.addEventListener('blur', ()=>{ el.value = formatMoneyValue(el.value); });
+  }
+  function bindAllMoneyInputs(){
+    document.querySelectorAll('.input-money').forEach(bindMoneyInput);
+  }
+  function formatAllMoneyInputs(){
+    document.querySelectorAll('.input-money').forEach(el=>{ el.value = formatMoneyValue(el.value); });
   }
   function txt(id){
     const el = document.getElementById(id);
@@ -306,6 +330,7 @@ REGLAS: Usá solo los datos que te comparto. No inventes ni promedies con datos 
     document.getElementById('tienda_rubro').value = 'Calzado';
     document.getElementById('tienda_plataforma').value = 'Tienda Nube';
     document.getElementById('tienda_periodo').value = 'Mayo';
+    formatAllMoneyInputs();
     recalc();
   });
   document.getElementById('btn-clear').addEventListener('click', ()=>{
